@@ -303,7 +303,7 @@ def main():
         plt.ylabel("% of websites with trackers")
         plt.xlabel("Year")
         plt.title(f"Tracker prevalence on websites — {country}")
-        plt.ylim(0, 100)
+        plt.ylim(0, 105)
         plt.grid(True, alpha=0.3)
         ax = plt.gca()
         ax.xaxis.set_major_locator(MaxNLocator(integer=True))  # whole years only
