@@ -1,0 +1,59 @@
+# =============================================================================
+# Configuration for the archive-based tracking pipeline.
+# Every stage of the pipeline reads from this file, so this is the single
+# place to change what data you collect and analyze.
+# =============================================================================
+
+# ----------------------------------------------------------------------------
+# Year range (inclusive) to download snapshots for.
+# The Internet Archive's earliest captures begin in 1996.
+# ----------------------------------------------------------------------------
+years:
+  start: 2024
+  end: 2026
+
+# ----------------------------------------------------------------------------
+# How many snapshots to download per website *per year*.
+#
+# Selection rule (matches the methodology in the paper):
+#   * The FIRST snapshot of each year is always selected (earliest state).
+#   * Any remaining slots are filled with snapshots chosen at random from
+#     the rest of that same year (to catch mid-year changes).
+#
+# Example: snapshots_per_year: 2  ->  first-of-year + 1 random.
+# ----------------------------------------------------------------------------
+snapshots_per_year: 2
+
+# Seed for the random snapshot picker, so runs are reproducible.
+random_seed: 42
+
+# Only consider snapshots whose original capture returned HTTP 200.
+# Set to false to also keep redirects / error pages.
+only_status_200: true
+
+# ----------------------------------------------------------------------------
+# Politeness: delay (in seconds) between requests to the Internet Archive.
+# Please keep this >= 3s. The IA is a free public resource; do not hammer it.
+# ----------------------------------------------------------------------------
+request_delay: 5
+
+# ----------------------------------------------------------------------------
+# Number of parallel worker processes used in Stage 3 (tracker identification),
+# which parses HTML and runs the regex matching across CPU cores.
+# Leave null to use all available cores. Override at runtime with --workers.
+# (This only affects local CPU work, not requests to the Internet Archive.)
+# ----------------------------------------------------------------------------
+num_workers: null
+
+# ----------------------------------------------------------------------------
+# Filesystem layout. You normally do not need to change these.
+# ----------------------------------------------------------------------------
+paths:
+  input_csv: "input.csv"            # list of (country, website) to study
+  cdx_dir: "data/cdx"               # raw snapshot records (snapshot_downloader)
+  snapshots_dir: "data/snapshots"   # downloaded archived HTML (archive_downloader)
+  results_dir: "results"            # CSVs + plots (identify_tracker, map_tracker_org)
+  tracker_lists:                    # filter lists downloaded by setup.sh
+    - "tracker_list/easylist.txt"
+    - "tracker_list/easyprivacy.txt"
+  tracker_radar_entities: "tracker-radar/entities"  # DuckDuckGo Tracker Radar
