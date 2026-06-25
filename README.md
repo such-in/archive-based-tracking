@@ -189,3 +189,10 @@ After a full run, `results/` contains:
 - Tracker detection: [EasyList & EasyPrivacy](https://easylist.to/)
 - Organization mapping: [DuckDuckGo Tracker Radar](https://github.com/duckduckgo/tracker-radar)
 
+## Paper
+
+Singh SK, Mahmud F, Ricci R, Siby S. The Empire Strikes Back (at Your Privacy): An Archaeology of Tracking on Government Websites. Proceedings on Privacy Enhancing Technologies. 2026. https://petsymposium.org/popets/2026/popets-2026-0039.pdf
+
+
+
+
